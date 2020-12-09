@@ -30,15 +30,18 @@ var chartGroup = svg.append("g")
 // Step 3:
 // Import data from data.csv file
 // ================================
-d3.csv("./data/data.csv").then(function(censusData) {
+d3.csv("assets/data/data.csv").then(function(censusData) {
+    console.table(censusData),
     // Parse the data
     // Use age and smoing data for our chart
-    censusData.array.forEach(function(data) {
-        data.age = +data.age;
-        data.smokes = +data.smokes;        
+    censusData.forEach(function(data) {
+        data.age = parseFloat(data.age);
+        data.smokes = parseFloat(data.smokes);        
     });
 
 }).catch(function(error) {
     console.log(error);
 });
+
+
 
