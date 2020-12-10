@@ -32,12 +32,27 @@ var chartGroup = svg.append("g")
 // ================================
 d3.csv("assets/data/data.csv").then(function(censusData) {
     console.table(censusData),
-    // Parse the data
+    // Step 4: Parse the data
     // Use age and smoing data for our chart
     censusData.forEach(function(data) {
         data.age = parseFloat(data.age);
         data.smokes = parseFloat(data.smokes);        
     });
+
+    // Step 5: Create Scales
+    //= ============================================
+    // x scale to scale ages data
+    var xLinearScale = d3.scaleLinear()
+    .domain(d3.extent(censusData, data => data.smokes))
+    .range([0, width]);
+
+    // y scale to scale smokes data
+    var yLinearScale = d3.scaleLinear()
+    .domain([0, d3.max(censusData, data => data.smokes)])
+    .range([height, 0]);
+
+  
+
 
 }).catch(function(error) {
     console.log(error);
