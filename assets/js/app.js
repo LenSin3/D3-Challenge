@@ -43,18 +43,49 @@ d3.csv("assets/data/data.csv").then(function(censusData) {
     //= ============================================
     // x scale to scale ages data
     var xLinearScale = d3.scaleLinear()
-    .domain(d3.extent(censusData, data => data.smokes))
+    .domain(d3.extent(censusData, data => data.age))
     .range([0, width]);
 
     // y scale to scale smokes data
     var yLinearScale = d3.scaleLinear()
-    .domain([0, d3.max(censusData, data => data.smokes)])
+    .domain(d3.extent(censusData, data => data.smokes))
     .range([height, 0]);
 
     // Step 6: Create Axes
     // =============================================
     var bottomAxis = d3.axisBottom(xLinearScale);
     var leftAxis = d3.axisLeft(yLinearScale);
+
+    // Step 7: Append the axes to the chartGroup - ADD STYLING
+    // ==============================================
+    // Add bottomAxis
+    chartGroup.append("g")
+    .attr("transform", `translate(0, ${height})`)
+    .call(bottomAxis);
+
+    // left axis
+    chartGroup.append("g")
+    // .attr("stroke", "green") // NEW!
+    // .classed("green", true)
+    .call(leftAxis);
+
+    
+    // append circles
+    var circlesGroup = chartGroup.selectAll("circle")
+      .data(censusData)
+      .enter()
+      .append("circle")
+      .attr("cx", d => xLinearScale(d.age))
+      .attr("cy", d => yLinearScale(d.smokes))
+      .attr("r", "10")
+      .classed("chart", true)
+      .classed("stateCircle", true);
+      //.classed("stateText", function((d, i) {
+       // d.abbr;
+      //})
+      
+
+
  
 
   
