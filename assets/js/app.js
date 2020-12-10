@@ -51,6 +51,12 @@ d3.csv("assets/data/data.csv").then(function(censusData) {
     .domain([0, d3.max(censusData, data => data.smokes)])
     .range([height, 0]);
 
+    // Step 6: Create Axes
+    // =============================================
+    var bottomAxis = d3.axisBottom(xLinearScale);
+    var leftAxis = d3.axisLeft(yLinearScale);
+ 
+
   
 
 
