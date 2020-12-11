@@ -35,8 +35,8 @@ d3.csv("assets/data/data.csv").then(function(censusData) {
     // Step 4: Parse the data
     // Use age and smoing data for our chart
     censusData.forEach(function(data) {
-        data.age = parseFloat(data.age);
-        data.smokes = parseFloat(data.smokes);        
+        data.age = +data.age;
+        data.smokes = +data.smokes;        
     });
 
     // Step 5: Create Scales
@@ -71,18 +71,80 @@ d3.csv("assets/data/data.csv").then(function(censusData) {
 
     
     // append circles
+   /* var circlesGroup = chartGroup.selectAll("circle")
+      .data(censusData)
+      .enter()
+      .append("circle")
+      .attr("cx", d => xLinearScale(d.age))
+      .attr("cy", d => yLinearScale(d.smokes))
+      .attr("r", "8")
+      //.classed("chart", true)
+      .classed("stateCircle", true);
+      //.classed("stateText", function((d, i) {
+       // d.abbr;
+      //})
+    // Append text element to the circles
+    
+    var textGroup = chartGroup.selectAll("text")
+    .data(censusData)
+    .enter()
+    .append("text");
+
+    var textLabel = textGroup
+      // .attr("dx", 0)
+      // .attr("dy", ".35em")
+      .attr("dx", d => xLinearScale(d.age))
+      .attr("dy", d => yLinearScale(d.smokes))
+      .attr("font-size", "5px")
+      .text(function(d) {
+        return d.abbr;
+      })
+      .classed("stateText", true);*/
+
+    /*chartGroup.append("text")
+    .text(function(d) {
+      return d.abbr;
+    })
+    .attr("dx", d => xLinearScale(d.age))
+    .attr("dy", d => yLinearScale(d.smokes))
+    .attr("font-size", "10px")
+    .classed("stateText", true);*/
+
+    // append circles
     var circlesGroup = chartGroup.selectAll("circle")
       .data(censusData)
       .enter()
       .append("circle")
       .attr("cx", d => xLinearScale(d.age))
       .attr("cy", d => yLinearScale(d.smokes))
-      .attr("r", "10")
-      .classed("chart", true)
+      .attr("r", "15")
+      //.classed("chart", true)
       .classed("stateCircle", true);
       //.classed("stateText", function((d, i) {
        // d.abbr;
       //})
+    // Append text element to the circles
+    
+    var textGroup = chartGroup.selectAll(null)
+    .data(censusData)
+    .enter()
+    .append("text");
+
+    var textLabel = textGroup
+      // .attr("dx", 0)
+      // .attr("dy", ".35em")
+      .attr("x", d => xLinearScale(d.age))
+      .attr("y", d => yLinearScale(d.smokes))
+      //.attr("dx", ".71em")
+      //.attr("dy", ".35em")
+      .attr("font-size", "10px")
+      .text(function(d) {
+        return d.abbr;
+      })
+      .classed("stateText", true);
+      
+   
+    
       
 
 
