@@ -16,8 +16,6 @@ function makeResponsive() {
   // @TODO: YOUR CODE HERE!
   // Step 1: Set up our chart
   //= ================================
-  // var svgWidth = 960;
-  // var svgHeight = 500;
 
   var margin = {
     top: 20,
@@ -80,50 +78,7 @@ function makeResponsive() {
 
       // left axis
       chartGroup.append("g")
-      // .attr("stroke", "green") // NEW!
-      // .classed("green", true)
       .call(leftAxis);
-
-      
-      // append circles
-    /* var circlesGroup = chartGroup.selectAll("circle")
-        .data(censusData)
-        .enter()
-        .append("circle")
-        .attr("cx", d => xLinearScale(d.age))
-        .attr("cy", d => yLinearScale(d.smokes))
-        .attr("r", "8")
-        //.classed("chart", true)
-        .classed("stateCircle", true);
-        //.classed("stateText", function((d, i) {
-        // d.abbr;
-        //})
-      // Append text element to the circles
-      
-      var textGroup = chartGroup.selectAll("text")
-      .data(censusData)
-      .enter()
-      .append("text");
-
-      var textLabel = textGroup
-        // .attr("dx", 0)
-        // .attr("dy", ".35em")
-        .attr("dx", d => xLinearScale(d.age))
-        .attr("dy", d => yLinearScale(d.smokes))
-        .attr("font-size", "5px")
-        .text(function(d) {
-          return d.abbr;
-        })
-        .classed("stateText", true);*/
-
-      /*chartGroup.append("text")
-      .text(function(d) {
-        return d.abbr;
-      })
-      .attr("dx", d => xLinearScale(d.age))
-      .attr("dy", d => yLinearScale(d.smokes))
-      .attr("font-size", "10px")
-      .classed("stateText", true);*/
 
       // append circles
       var circlesGroup = chartGroup.selectAll("circle")
@@ -133,21 +88,14 @@ function makeResponsive() {
         .attr("cx", d => xLinearScale(d.age))
         .attr("cy", d => yLinearScale(d.smokes))
         .attr("r", "15")
-        //.classed("chart", true)
         .classed("stateCircle", true);
-        //.classed("stateText", function((d, i) {
-        // d.abbr;
-        //})
-      // Append text element to the circles
       
       var textGroup = chartGroup.selectAll(null)
       .data(censusData)
       .enter()
       .append("text");
 
-      var textLabel = textGroup
-        // .attr("dx", 0)
-        // .attr("dy", ".35em")
+      textGroup
         .attr("x", d => xLinearScale(d.age))
         .attr("y", d => yLinearScale(d.smokes))
         //.attr("dx", ".71em")
@@ -158,6 +106,29 @@ function makeResponsive() {
         })
         .classed("stateText", true);
 
+       // Step 6: Initialize tool tip
+      // ==============================
+      var toolTip = d3.tip()
+      .attr("class", "tooltip")
+      .offset([80, -60])
+      .html(function(d) {
+        return (`${d.abbr}<br>Smokes (%): ${d.smokes}<br>Age (Median): ${d.age}`);
+      });
+
+      // Step 7: Create tooltip in the chart
+      // ==============================
+      chartGroup.call(toolTip);
+
+      // Step 8: Create event listeners to display and hide the tooltip
+      // ==============================
+      circlesGroup.on("mouseover", function(d) {
+        toolTip.show(d, this);
+      })
+      // Step 4: Create "mouseout" event listener to hide tooltip
+        .on("mouseout", function(d) {
+          toolTip.hide(d);
+        });
+
        // Create axes labels
       chartGroup.append("text")
       .attr("transform", "rotate(-90)")
@@ -167,21 +138,11 @@ function makeResponsive() {
       .classed("axisText", true)
       .text("Smokers (%)");
 
-    chartGroup.append("text")
+      chartGroup.append("text")
       .attr("transform", `translate(${width / 2}, ${height + margin.top + 30})`)
       .classed("axisText", true)
       .text("Age (Median)");
-        
-    
-      
-        
-
-
-  
-
-    
-
-
+ 
   }).catch(function(error) {
       console.log(error);
   });

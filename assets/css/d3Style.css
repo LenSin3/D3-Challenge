@@ -11,6 +11,20 @@
   text-anchor: middle;
 }
 
+.tooltip {
+  position: absolute;
+  width: 135px;
+  height: 60px;
+  padding: 2px;
+  padding-top: 8px;
+  font: 12px sans-serif;
+  color: white;
+  text-align: center;
+  background: #af621a;
+  border: 0;
+  border-radius: 10px;
+}
+
 .active {
   font-weight: bold;
   fill: #000;
