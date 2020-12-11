@@ -1,7 +1,9 @@
-// Wrap chart code inside a function
+// Step 1:  Wrap chart code inside a function
 // that automatically resizes the chart
+//=======================================
 function makeResponsive() {
-
+  
+  // Step 2:
   // if the SVG area isn't empty when the browser loads, remove it
   // and replace it with a resized version of the chart
   var svgArea = d3.select("body").select("svg");
@@ -9,13 +11,14 @@ function makeResponsive() {
     svgArea.remove();
   }
 
-   // SVG wrapper dimensions are determined by the current width
+  // Step 3:
+  // SVG wrapper dimensions are determined by the current width
   // and height of the browser window.
   var svgWidth = window.innerWidth;
   var svgHeight = window.innerHeight;
-  // @TODO: YOUR CODE HERE!
-  // Step 1: Set up our chart
-  //= ================================
+  
+  // Step 4: Set up our chart
+  //=================================
 
   var margin = {
     top: 20,
@@ -27,7 +30,7 @@ function makeResponsive() {
   var width = svgWidth - margin.left - margin.right;
   var height = svgHeight - margin.top - margin.bottom;
 
-  // Step 2: Create an SVG wrapper,
+  // Step 5: Create an SVG wrapper,
   // append an SVG group that will hold our chart,
   // and shift the latter by left and top margins.
   // =================================
@@ -40,7 +43,7 @@ function makeResponsive() {
   var chartGroup = svg.append("g")
     .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
-  // Step 3:
+  // Step 6:
   // Import data from data.csv file
   // ================================
   d3.csv("assets/data/data.csv").then(function(censusData) {
@@ -52,7 +55,7 @@ function makeResponsive() {
           data.smokes = +data.smokes;        
       });
 
-      // Step 5: Create Scales
+      // Step 7: Create Scales
       //= ============================================
       // x scale to scale ages data
       var xLinearScale = d3.scaleLinear()
@@ -64,12 +67,12 @@ function makeResponsive() {
       .domain(d3.extent(censusData, data => data.smokes))
       .range([height, 0]);
 
-      // Step 6: Create Axes
+      // Step 8: Create Axes
       // =============================================
       var bottomAxis = d3.axisBottom(xLinearScale);
       var leftAxis = d3.axisLeft(yLinearScale);
 
-      // Step 7: Append the axes to the chartGroup - ADD STYLING
+      // Step 9: Append the axes to the chartGroup - ADD STYLING
       // ==============================================
       // Add bottomAxis
       chartGroup.append("g")
@@ -80,7 +83,8 @@ function makeResponsive() {
       chartGroup.append("g")
       .call(leftAxis);
 
-      // append circles
+      // Step 10:  append circles
+      // ========================================
       var circlesGroup = chartGroup.selectAll("circle")
         .data(censusData)
         .enter()
@@ -90,6 +94,7 @@ function makeResponsive() {
         .attr("r", "15")
         .classed("stateCircle", true);
       
+      // Step 11: Append text
       var textGroup = chartGroup.selectAll(null)
       .data(censusData)
       .enter()
@@ -106,7 +111,7 @@ function makeResponsive() {
         })
         .classed("stateText", true);
 
-       // Step 6: Initialize tool tip
+       // Step 12: Initialize tool tip
       // ==============================
       var toolTip = d3.tip()
       .attr("class", "tooltip")
@@ -115,21 +120,23 @@ function makeResponsive() {
         return (`${d.abbr}<br>Smokes (%): ${d.smokes}<br>Age (Median): ${d.age}`);
       });
 
-      // Step 7: Create tooltip in the chart
+      // Step 13: Create tooltip in the chart
       // ==============================
       chartGroup.call(toolTip);
 
-      // Step 8: Create event listeners to display and hide the tooltip
+      // Step 14: Create event listeners to display and hide the tooltip
       // ==============================
       circlesGroup.on("mouseover", function(d) {
         toolTip.show(d, this);
       })
-      // Step 4: Create "mouseout" event listener to hide tooltip
+      // Step 15: Create "mouseout" event listener to hide tooltip
+      // =======================================================
         .on("mouseout", function(d) {
           toolTip.hide(d);
         });
 
-       // Create axes labels
+      // Step 16: Create axes labels
+      // =============================
       chartGroup.append("text")
       .attr("transform", "rotate(-90)")
       .attr("y", 0 - margin.left + 5)
