@@ -157,6 +157,20 @@ function makeResponsive() {
           return d.abbr;
         })
         .classed("stateText", true);
+
+       // Create axes labels
+      chartGroup.append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 0 - margin.left + 5)
+      .attr("x", 0 - (height / 2))
+      .attr("dy", "1em")
+      .classed("axisText", true)
+      .text("Smokers (%)");
+
+    chartGroup.append("text")
+      .attr("transform", `translate(${width / 2}, ${height + margin.top + 30})`)
+      .classed("axisText", true)
+      .text("Age (Median)");
         
     
       
