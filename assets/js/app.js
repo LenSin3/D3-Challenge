@@ -92,7 +92,8 @@ function makeResponsive() {
         .attr("cx", d => xLinearScale(d.age))
         .attr("cy", d => yLinearScale(d.smokes))
         .attr("r", "15")
-        .classed("stateCircle", true);
+        .classed("stateCircle", true)
+        .attr("opacity", ".8");
       
       // Step 11: Append text
       var textGroup = chartGroup.selectAll(null)
