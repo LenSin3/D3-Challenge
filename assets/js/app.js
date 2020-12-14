@@ -6,7 +6,8 @@ function makeResponsive() {
   // Step 2:
   // if the SVG area isn't empty when the browser loads, remove it
   // and replace it with a resized version of the chart
-  var svgArea = d3.select("body").select("svg");
+  // var parentDiv = d3.getElementById("#scatter");
+  var svgArea = d3.select(".container").select("svg");
   if (!svgArea.empty()) {
     svgArea.remove();
   }
@@ -23,8 +24,8 @@ function makeResponsive() {
   var margin = {
     top: 20,
     right: 40,
-    bottom: 60,
-    left: 50
+    bottom: 80,
+    left: 60
   };
 
   var width = svgWidth - margin.left - margin.right;
@@ -35,10 +36,15 @@ function makeResponsive() {
   // and shift the latter by left and top margins.
   // =================================
   var svg = d3
-    .select("body")
+    .select("#scatter")
     .append("svg")
     .attr("width", svgWidth)
-    .attr("height", svgHeight);
+    //.attr("width", "col-xs-12  col-md-9")
+    .attr("height", svgHeight)
+    //.attr('viewBox','0 0 '+Math.min(width,height)+' '+Math.min(width,height))
+    //.attr('preserveAspectRatio','xMinYMin')
+    ;
+    
 
   var chartGroup = svg.append("g")
     .attr("transform", `translate(${margin.left}, ${margin.top})`);
@@ -59,7 +65,7 @@ function makeResponsive() {
       //= ============================================
       // x scale to scale ages data
       var xLinearScale = d3.scaleLinear()
-      .domain(d3.extent(censusData, data => data.age))
+      .domain([d3.min(censusData, data => data.age) * 0.95, d3.max(censusData, data => data.age)*1.1])
       .range([0, width]);
 
       // y scale to scale smokes data
@@ -162,6 +168,7 @@ makeResponsive();
 
 // When the browser window is resized, responsify() is called.
 d3.select(window).on("resize", makeResponsive);
+
 
 
 
