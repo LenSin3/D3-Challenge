@@ -1,13 +1,14 @@
 // Step 1:  Wrap chart code inside a function
 // that automatically resizes the chart
 //=======================================
+
 function makeResponsive() {
   
   // Step 2:
   // if the SVG area isn't empty when the browser loads, remove it
   // and replace it with a resized version of the chart
   // var parentDiv = d3.getElementById("#scatter");
-  var svgArea = d3.select(".container").select("svg");
+  var svgArea = d3.select("#scatter").select("svg");
   if (!svgArea.empty()) {
     svgArea.remove();
   }
@@ -15,8 +16,8 @@ function makeResponsive() {
   // Step 3:
   // SVG wrapper dimensions are determined by the current width
   // and height of the browser window.
-  var svgWidth = window.innerWidth;
-  var svgHeight = window.innerHeight;
+  var svgWidth = window.innerWidth/1.7;
+  var svgHeight = window.innerHeight/1.2;
   
   // Step 4: Set up our chart
   //=================================
@@ -40,10 +41,7 @@ function makeResponsive() {
     .append("svg")
     .attr("width", svgWidth)
     //.attr("width", "col-xs-12  col-md-9")
-    .attr("height", svgHeight)
-    //.attr('viewBox','0 0 '+Math.min(width,height)+' '+Math.min(width,height))
-    //.attr('preserveAspectRatio','xMinYMin')
-    ;
+    .attr("height", svgHeight);
     
 
   var chartGroup = svg.append("g")
@@ -55,7 +53,7 @@ function makeResponsive() {
   d3.csv("assets/data/data.csv").then(function(censusData) {
       console.table(censusData),
       // Step 4: Parse the data
-      // Use age and smoing data for our chart
+      // Use age and smoking data for our chart
       censusData.forEach(function(data) {
           data.age = +data.age;
           data.smokes = +data.smokes;        
@@ -168,9 +166,5 @@ makeResponsive();
 
 // When the browser window is resized, responsify() is called.
 d3.select(window).on("resize", makeResponsive);
-
-
-
-
 
 
