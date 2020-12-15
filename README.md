@@ -6,16 +6,47 @@ This project uses D3 and javaScript to create a visualization of socio-economic 
 
 ## Task
 
-### Core Assignment: D3 Dabbler (Required Assignment)
+### Core: D3 Dabbler 
 
-![4-scatter](Images/4-scatter.jpg)
+![4-scatter](/Images/4-scatter.jpg)
 
-You need to create a scatter plot between two of the data variables such as `Healthcare vs. Poverty` or `Smokers vs. Age`.
+Create a scatter plot between two of the data variables such as `Healthcare vs. Poverty` or `Smokers vs. Age`.
 
-Using the D3 techniques we taught you in class, create a scatter plot that represents each state with circle elements. You'll code this graphic in the `app.js` file of your homework directory—make sure you pull in the data from `data.csv` by using the `d3.csv` function. Your scatter plot should ultimately appear like the image at the top of this section.
+Create a scatter plot that represents each state with circle elements.
 
 * Include state abbreviations in the circles.
 
 * Create and situate your axes and labels to the left and bottom of the chart.
 
-* Note: You'll need to use `python -m http.server` to run the visualization. This will host the page at `localhost:8000` in your web browser.
+- - -
+
+### Bonus: Impress the Boss (Optional Assignment)
+
+![7-animated-scatter](/Images/7-animated-scatter.gif)
+
+#### 1. More Data, More Dynamics
+
+Include more demographics and more risk factors. Place additional labels in scatter plot and give them click events so that users can decide which data to display. Animate the transitions for circles' locations as well as the range of the axes. Do this for two risk factors for each axis. Or, for an extreme challenge, create three for each axis.
+
+#### 2. Incorporate d3-tip
+
+Use the `d3-tip.js` plugin developed by [Justin Palmer](https://github.com/Caged)
+
+![8-tooltip](/Images/8-tooltip.gif)
+
+## Files
+
+* D3-Dabbler
+  * index.html
+  * app.js
+
+* Bonus
+  * index1.html
+  * app1.js
+
+## Tools and Libraries
+
+* html
+* css
+* javaScript
+* d3.js
